@@ -1,0 +1,38 @@
+spring:
+  r2dbc:
+    url: ${R2DBC_URL:r2dbc:postgresql://localhost:5432/casaaluna}
+    username: ${DB_USERNAME:casaaluna}
+    password: ${DB_PASSWORD:casaaluna}
+    pool:
+      initial-size: 20
+      max-size: 50
+      max-idle-time: 30m
+  
+  flyway:
+    url: ${JDBC_URL:jdbc:postgresql://localhost:5432/casaaluna}
+    user: ${DB_USERNAME:casaaluna}
+    password: ${DB_PASSWORD:casaaluna}
+
+logging:
+  level:
+    root: INFO
+    com.casaaluna.backend: INFO
+    org.springframework.r2dbc: WARN
+    io.r2dbc.postgresql: WARN
+
+server:
+  error:
+    include-stacktrace: never
+    include-exception: false
+
+management:
+  endpoint:
+    health:
+      show-details: never
+
+casaaluna:
+  analytics:
+    enabled: true
+    batch-size: 500
+  notifications:
+    enabled: true

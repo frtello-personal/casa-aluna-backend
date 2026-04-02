@@ -1,0 +1,24 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/casaaluna
+    username: casaaluna
+    password: casaaluna
+  
+  flyway:
+    url: jdbc:postgresql://localhost:5432/casaaluna
+    user: casaaluna
+    password: casaaluna
+
+logging:
+  level:
+    root: INFO
+    com.casaaluna.backend: DEBUG
+    org.springframework.r2dbc: DEBUG
+    io.r2dbc.postgresql.QUERY: DEBUG
+    io.r2dbc.postgresql.PARAM: DEBUG
+
+casaaluna:
+  analytics:
+    enabled: true
+  notifications:
+    enabled: false

@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: casa-aluna-backend
+  
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/casaaluna
+    username: casaaluna
+    password: casaaluna
+    pool:
+      initial-size: 10
+      max-size: 20
+      max-idle-time: 30m
+      validation-query: SELECT 1
+  
+  flyway:
+    url: jdbc:postgresql://localhost:5432/casaaluna
+    user: casaaluna
+    password: casaaluna
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    enabled: true
+
+  webflux:
+    base-path: /api/v1
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  level:
+    root: INFO
+    com.casaaluna.backend: DEBUG
+    org.springframework.r2dbc: DEBUG
+    io.r2dbc.postgresql.QUERY: DEBUG
+    io.r2dbc.postgresql.PARAM: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Application-specific configuration
+casaaluna:
+  analytics:
+    enabled: true
+    batch-size: 100
+  notifications:
+    enabled: false  # Will be enabled when WhatsApp integration is ready
